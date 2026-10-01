@@ -16,11 +16,10 @@ def to_radians(value):
 l1 = 5  #length of first link
 l2 = 5 #length of second link
 q1 = np.pi/4 #q1 starting angle in radians
-q2 = np.pi #q2 starting angle in radians
-
+q2 = np.pi/4 #q2 starting angle in radians
 o = [0, 0] #orgin
 a = [o[0] + np.cos(q1) * l1, o[1] + np.sin(q1) * l1] #coordinates of first joint
-b = [a[0] + np.cos(q2) * l1, a[1] + np.sin(q2) * l1] #coordinates of second joint
+b = [a[0] + np.cos(q1+q2) * l1, a[1] + np.sin(q1+q2) * l1] #coordinates of second joint
 
 line1x = [o[0], a[0]] #line 1's x coordinates; the x values of 2 coordinates that lie on line 1
 line1y = [o[1], a[1]] #line 1's y coordintes; the y values of 2 coordinates that lie on line 1
@@ -28,19 +27,27 @@ line2x = [a[0], b[0]] #line 2's x coordinates; the x values of 2 coordinates tha
 line2y = [a[1], b[1]] #line 2's y coordintes; the y values of 2 coordinates that lie on line 2
 
 def moveline1(q1_in_degrees):
+    global q1
+    global q2
     q1 = to_radians(q1_in_degrees)
     a = [np.cos(q1) * l1, np.sin(q1) * l1]
+    b = [a[0] + (np.cos(q1+q2) * l1), a[1] + (np.sin(q1+q2) * l1)]
     line1x, line1y = [o[0], a[0]], [o[1], a[1]]
-    b = [a[0] + (np.cos(q2) * l1), a[1] + (np.sin(q2) * l1)]
     line2x, line2y = [a[0], b[0]], [a[1], b[1]]
     line1.set_data(line1x, line1y)
     line2.set_data(line2x, line2y)
     figure.canvas.draw_idle()
 
 def moveline2(q2_in_degrees):
+    global q1
+    global q2
     q2 = to_radians(q2_in_degrees)
-
-
+    a = [np.cos(q1) * l1, np.sin(q1) * l1]
+    b = [a[0] + np.cos(q1+q2) * l1, a[1] + np.sin(q1+q2) * l1]
+    line2x, line2y = [a[0], b[0]], [a[1], b[1]]
+    line2.set_data(line2x, line2y)
+    plt.plot(b[0], b[1], "ro")
+    figure.canvas.draw_idle()
 
 line1 = plt.plot(line1x, line1y, color="black", linewidth=3)[0]
 line2 = plt.plot(line2x, line2y, color="black", linewidth=3)[0]
@@ -52,14 +59,15 @@ root.title("Forward Kinematics")
 
 #--------Slider 1--------
 h1 = tk.Label(root, text = "q1 angle (degrees)")
-slider1 = tk.Scale(root, from_=0, to_=360, orient="horizontal", length=600, command=moveline1)
+slider1 = tk.Scale(root, from_=-180, to_=180, orient="horizontal", length=600, command=moveline1)
 slider1.set(to_degrees(q1))
 slider1.pack()
 h1.pack()
 
 #--------Slider 2--------
 h2 = tk.Label(root, text = "q2 angle (degrees)")
-slider2 = tk.Scale(root, from_=0, to_=360, orient="horizontal", length=600, command=moveline2)
+slider2 = tk.Scale(root, from_=-180, to_=180, orient="horizontal", length=600, command=moveline2)
+slider2.set(to_degrees(q2))
 slider2.pack()
 h2.pack()
 
