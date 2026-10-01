@@ -26,7 +26,6 @@ x2, y2 = [a[0], b[0]], [a[1], b[1]] #line 2 x and y coordinates
 
 def moveline1(value):
     q1 = to_radians(value)
-    #print(rad)
     a = [np.cos(q1) * l1, np.sin(q1) * l1]
     x1, y1 = [o[0], a[0]], [o[1], a[1]]
     b = [a[0] + (np.cos(q2) * l1), a[1] + (np.sin(q2) * l1)]
