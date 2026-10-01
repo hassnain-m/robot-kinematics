@@ -24,12 +24,15 @@ x1, y1 = [o[0], a[0]], [o[1], a[1]] #line 1 x and y coordintes
 x2, y2 = [a[0], b[0]], [a[1], b[1]] #line 2 x and y coordinates
 
 
-def update(value):
-    rad = to_radians(value)
-    print(rad)
-    a = [np.cos(rad) * l1, np.sin(rad) * l1]
+def moveline1(value):
+    q1 = to_radians(value)
+    #print(rad)
+    a = [np.cos(q1) * l1, np.sin(q1) * l1]
     x1, y1 = [o[0], a[0]], [o[1], a[1]]
+    b = [a[0] + (np.cos(q2) * l1), a[1] + (np.sin(q2) * l1)]
+    x2, y2 = [a[0], b[0]], [a[1], b[1]]
     line1.set_data(x1, y1)
+    line2.set_data(x2, y2)
     figure.canvas.draw_idle()
 
 line1 = plt.plot(x1, y1, color="black", linewidth=3)[0]
@@ -42,7 +45,7 @@ root.title("Forward Kinematics")
 
 #--------Slider 1--------
 h1 = tk.Label(root, text = "q1 angle (degrees)")
-slider1 = tk.Scale(root, from_=0, to_=360, orient="horizontal", length=600, command=update)
+slider1 = tk.Scale(root, from_=0, to_=360, orient="horizontal", length=600, command=moveline1)
 slider1.set(to_degrees(q1))
 slider1.pack()
 h1.pack()
