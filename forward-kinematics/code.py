@@ -19,9 +19,10 @@ def update(value):
     a = [np.cos(rad) * l1, np.sin(rad) * l1]
     x, y = [o[0], a[0]], [o[1], a[1]]
     line.set_data(x, y)
-    plt.draw()
+    figure.canvas.draw_idle()
 
 line = plt.plot(x, y, color="black", linewidth=3)[0]
+figure = plt.gcf()
 
 root = tk.Tk()
 root.geometry("600x200")
