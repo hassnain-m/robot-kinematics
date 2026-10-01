@@ -6,15 +6,22 @@ import tkinter as tk
 import numpy as np
 import matplotlib.pyplot as plt
 
+def to_degrees(value):
+    return float(value) * 180 / np.pi
 
+def to_radians(value):
+    return float(value) * np.pi / 180
+
+#--------Initial Values--------
 o = [0,0] #orgin
 l1 = 5 * np.sqrt(2) #length of first link
-q1 = np.pi/4 #radians
+q1 = np.pi/4 #starting angle
 a = [np.cos(q1) * l1, np.sin(q1) * l1] #coordinates of first joint
 x, y = [o[0], a[0]], [o[1], a[1]]
 
+
 def update(value):
-    rad = float(value) * (np.pi / 180)
+    rad = to_radians(value)
     print(rad)
     a = [np.cos(rad) * l1, np.sin(rad) * l1]
     x, y = [o[0], a[0]], [o[1], a[1]]
