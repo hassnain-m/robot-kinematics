@@ -26,12 +26,16 @@ class RobotPlotter:
         self.figure = figure
 
         a, b = self.robot.get_joints()
+        self.base_joint = plt.plot(0, 0, "ro")[0]
 
         line1x = [0, a[0]]
         line1y = [0, a[1]]
 
         line2x = [a[0], b[0]]
         line2y = [a[1], b[1]]
+
+        self.joint_a = plt.plot(a[0], a[1], "ro")[0]
+        self.joint_b = plt.plot(b[0], b[1], "ro")[0]
 
         self.line1 = plt.plot(line1x, line1y, color="black", linewidth=3)[0]
         self.line2 = plt.plot(line2x, line2y, color="black", linewidth=3)[0]
@@ -45,8 +49,13 @@ class RobotPlotter:
         line2x = [a[0], b[0]]
         line2y = [a[1], b[1]]
 
+
         self.line1.set_data(line1x, line1y)
         self.line2.set_data(line2x, line2y)
+
+        self.joint_a.set_data([a[0]], [a[1]])
+        self.joint_b.set_data([b[0]], [b[1]])
+
         self.figure.canvas.draw_idle()
 
 
