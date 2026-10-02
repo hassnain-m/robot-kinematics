@@ -26,16 +26,15 @@ class RobotPlotter:
         self.figure = figure
 
         a, b = self.robot.get_joints()
-        self.figure = plt.gcf()
 
-        self.line1x = [0, a[0]]
-        self.line1y = [0, a[1]]
+        line1x = [0, a[0]]
+        line1y = [0, a[1]]
 
-        self.line2x = [a[0], b[0]]
-        self.line2y = [a[1], b[1]]
+        line2x = [a[0], b[0]]
+        line2y = [a[1], b[1]]
 
-        self.line1 = plt.plot(self.line1x, self.line1y, color="black", linewidth=3)[0]
-        self.line2 = plt.plot(self.line2x, self.line2y, color="black", linewidth=3)[0]
+        self.line1 = plt.plot(line1x, line1y, color="black", linewidth=3)[0]
+        self.line2 = plt.plot(line2x, line2y, color="black", linewidth=3)[0]
 
     def draw(self):
         a, b = self.robot.get_joints()
@@ -56,7 +55,6 @@ l1 = 5  #length of first link
 l2 = 5 #length of second link
 q1 = np.pi/4 #q1 starting angle in radians
 q2 = np.pi/4 #q2 starting angle in radians
-o = [0, 0] #orgin
 
 figure = plt.gcf()
 robot = Robot(q1, q2, l1, l2)
