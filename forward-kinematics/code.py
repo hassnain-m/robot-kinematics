@@ -24,7 +24,6 @@ class RobotPlotter:
     def __init__(self, robot, figure):
         self.robot = robot
         self.figure = figure
-        self.figure.canvas.draw_idle()
 
         a, b = self.robot.get_joints()
         self.figure = plt.gcf()
@@ -49,6 +48,7 @@ class RobotPlotter:
 
         self.line1.set_data(line1x, line1y)
         self.line2.set_data(line2x, line2y)
+        self.figure.canvas.draw_idle()
 
 
 #--------Initial Values and Setup--------
