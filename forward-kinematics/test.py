@@ -1,20 +1,28 @@
-import matplotlib.pyplot as plt
-import numpy as np
+import tkinter as tk
+from tkdial import Dial
 
-o = [0,0] #orgin
-q1 = np.pi/4 #radians
-l1 = 5 * np.sqrt(2) #length of first link
-a = [np.cos(q1) * l1, np.sin(q1) * l1] #coordinates of first joint
+def on_change(name, dial):
+    print(name, dial.get())
 
+def make_dial(master, name):
+    dial = Dial(
+        master=master,
+        color_gradient=("yellow", "red"),
+        start=0, end=360,
+        text=f"{name}: ",
+        unit_length=10,
+        scroll_steps=10,
+        integer=True,
+        command=lambda: on_change(name, dial),  # `dial` here is this call's own variable
+    )
+    return dial
 
-x = [o[0], a[0]]
-y = [o[1], a[1]]
+app = tk.Tk()
 
+dials = {}
+for i in range(1, 7):
+    name = f"Joint {i}"
+    dials[name] = make_dial(app, name)
+    dials[name].grid(row=(i - 1) // 3, column=(i - 1) % 3, padx=10, pady=10)
 
-plt.plot(x, y, "bo")
-plt.plot(x, y, color="black", linewidth=3)
-
-
-plt.ylim(0, 20)
-plt.xlim(-25, 20)
-plt.show()
+app.mainloop()

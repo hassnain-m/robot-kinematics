@@ -64,7 +64,7 @@ class RobotPlotter:
 l1 = 5  #length of first link
 l2 = 5 #length of second link
 q1 = np.pi/4 #q1 starting angle in radians
-q2 = np.pi/4 #q2 starting angle in radians
+q2 = -np.pi/4 #q2 starting angle in radians
 
 figure = plt.gcf() #get the current plot figure
 robot = Robot(q1, q2, l1, l2) #instantiate a Robot object
